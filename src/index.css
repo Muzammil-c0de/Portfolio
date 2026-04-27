@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: Impact, "Arial Black", "Franklin Gothic Heavy", "Arial Narrow", system-ui, sans-serif;
+  --font-sans: "Anton", Impact, "Arial Black", system-ui, sans-serif;
 }
 
 :root {

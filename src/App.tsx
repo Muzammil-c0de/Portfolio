@@ -109,6 +109,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isHireMeModalOpen, setIsHireMeModalOpen] = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
   const portfolioSliderRef = useRef<HTMLDivElement>(null)
   const activeSlideRef = useRef(0)
@@ -157,6 +158,26 @@ function App() {
     return () => window.clearInterval(interval)
   }, [])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    const revealElements = document.querySelectorAll('.reveal, .reveal-children')
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+
+    revealElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="min-h-screen bg-[#1b0f0b] text-white">
       <header className="relative z-50 bg-[#1b0f0b]">
@@ -175,12 +196,12 @@ function App() {
             </div>
 
             <div className="hidden md:block">
-              <a
-                href="mailto:muzamuzammil01@gmail.com"
+              <button
+                onClick={() => setIsHireMeModalOpen(true)}
                 className="rounded-full bg-[#ef233c] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c1121f]"
               >
                 Hire Me
-              </a>
+              </button>
             </div>
 
             <button
@@ -215,23 +236,23 @@ function App() {
               {link.label}
             </a>
           ))}
-          <a
-            href="mailto:muzamuzammil01@gmail.com"
+          <button
+            onClick={() => { setIsMenuOpen(false); setIsHireMeModalOpen(true); }}
             className="mx-auto mt-8 w-full max-w-xs rounded-full bg-[#ef233c] px-5 py-4 text-lg font-bold text-white transition hover:bg-[#c1121f]"
           >
             Hire Me
-          </a>
+          </button>
         </div>
       </aside>
 
       <main>
         <section id="home" className="bg-[#1b0f0b]">
           <div
-            className="mx-auto aspect-[1366/768] min-h-[210px] w-full max-w-7xl bg-contain bg-center bg-no-repeat sm:min-h-[320px] md:min-h-[480px] lg:min-h-0"
+            className="mx-auto -mt-2 aspect-[1366/768] min-h-[210px] w-full max-w-7xl bg-contain bg-center bg-no-repeat sm:-mt-4 sm:min-h-[320px] md:mt-0 md:min-h-[480px] lg:min-h-0"
             style={{ backgroundImage: 'url(/hero.png)' }}
             aria-label="Hero banner"
           />
-          <div className="mx-auto max-w-7xl px-5 pb-10 pt-6 md:px-8 md:pb-16 md:pt-8">
+          <div className="relative z-10 mx-auto -mt-4 max-w-7xl px-5 pb-10 md:-mt-32 md:px-8 md:pb-16">
             <div className="max-w-3xl">
             <h1 className="text-5xl font-black leading-[0.96] tracking-normal md:text-7xl">
               I build websites and apps that look sharp and work smoothly.
@@ -252,10 +273,10 @@ function App() {
         </section>
 
         <section id="services" className="border-y border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
-          <div className="mx-auto max-w-7xl">
+          <div className="reveal mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Services</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Development services for web and app projects.</h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <div className="reveal-children mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               {services.map((service) => (
                 <article key={service.title} className="rounded-lg border border-white/10 bg-white/5 p-6">
                   <h3 className="text-2xl font-black">{service.title}</h3>
@@ -267,7 +288,7 @@ function App() {
         </section>
 
         <section id="portfolio" className="px-5 py-8 md:px-8 md:py-2">
-          <div className="mx-auto max-w-7xl">
+          <div className="reveal mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Portfolio</p>
             <h2 className="mt-1 max-w-3xl text-4xl font-black md:text-4xl">Selected website and application work.</h2>
             <div ref={portfolioSliderRef} className="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-hidden pb-4">
@@ -291,7 +312,7 @@ function App() {
         </section>
 
         <section id="skills" className="bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
+          <div className="reveal mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Tools</p>
               <h2 className="mt-3 text-4xl font-black md:text-5xl">Tools, languages, and platforms I use.</h2>
@@ -307,7 +328,7 @@ function App() {
         </section>
 
         <section id="contact" className="px-5 py-12 md:px-8 md:py-16">
-          <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#ef233c] px-6 py-12 text-white md:px-12 md:py-16">
+          <div className="reveal mx-auto max-w-7xl rounded-[2rem] bg-[#ef233c] px-6 py-12 text-white md:px-12 md:py-16">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Contact</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Need a website or application? Let us build it.</h2>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -321,7 +342,7 @@ function App() {
           </div>
         </section>
 
-        <footer className="border-t border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-8">
+        <footer className="reveal border-t border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
               <div>
@@ -371,6 +392,66 @@ function App() {
           </div>
         </footer>
       </main>
+
+      {isHireMeModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-md md:max-w-xl rounded-2xl border border-white/10 bg-[#1b0f0b] p-6 shadow-2xl md:p-6">
+            <button
+              onClick={() => setIsHireMeModalOpen(false)}
+              className="absolute right-4 top-4 text-white/50 transition hover:text-white"
+              aria-label="Close"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h3 className="mb-6 md:mb-4 text-2xl font-black text-white">Hire Me</h3>
+            <form onSubmit={(e) => { 
+              e.preventDefault(); 
+              const formData = new FormData(e.currentTarget);
+              const company = formData.get('company');
+              const email = formData.get('email');
+              const contact = formData.get('contact');
+              const position = formData.get('position');
+              const salary = formData.get('salary');
+              const date = formData.get('date');
+              const body = `Company Name: ${company}%0ACompany Mail ID: ${email}%0AContact Number: ${contact}%0APosition: ${position}%0ASalary Budget: ${salary}%0ADate of Joining/Interview: ${date}`;
+              window.location.href = `mailto:muzamuzammil01@gmail.com?subject=Hire Me Request - ${company}&body=${body}`;
+              setIsHireMeModalOpen(false); 
+            }} className="space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Company Name</label>
+                <input name="company" type="text" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Company Mail ID</label>
+                <input name="email" type="email" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Contact Number</label>
+                <input name="contact" type="tel" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Position</label>
+                <input name="position" type="text" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Salary Budget</label>
+                <input name="salary" type="text" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10" />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-bold text-white/70">Date of Joining / Interview</label>
+                <input name="date" type="date" required className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 md:py-1.5 text-white outline-none focus:border-[#ef233c] focus:bg-white/10 [color-scheme:dark]" />
+              </div>
+              <div className="md:col-span-2">
+                <button type="submit" className="mt-2 w-full rounded-full bg-[#ef233c] py-3.5 md:py-2.5 font-bold text-white transition hover:bg-[#c1121f]">
+                  Submit Details
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
