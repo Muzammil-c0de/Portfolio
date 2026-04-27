@@ -1,1 +1,83 @@
 /* Styles handled by Tailwind in index.css */
+
+/* Social Media Icons - Adapted from Uiverse.io by vinodjangid07 */
+.social-card {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.socialContainer {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+/* Instagram */
+.containerOne:hover {
+  background-color: #d62976;
+  transition-duration: 0.3s;
+}
+
+/* Twitter / X */
+.containerTwo:hover {
+  background-color: #1da1f2;
+  transition-duration: 0.3s;
+}
+
+/* LinkedIn */
+.containerThree:hover {
+  background-color: #0072b1;
+  transition-duration: 0.3s;
+}
+
+/* WhatsApp */
+.containerFour:hover {
+  background-color: #128c7e;
+  transition-duration: 0.3s;
+}
+
+/* GitHub */
+.containerFive:hover {
+  background-color: #333;
+  transition-duration: 0.3s;
+}
+
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: 0.3s;
+}
+
+.socialSvg {
+  width: 17px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top 0.3s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

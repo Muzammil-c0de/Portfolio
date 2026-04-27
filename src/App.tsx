@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import './App.css'
+
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -72,27 +74,30 @@ const skills = [
   'Python',
   'Flutter',
   'Dart',
-  'Responsive UI',
-  'Web Apps',
+  'VSCode',
+  'Antigravity',
+  'Canva',
+  'Github',
+  'Vercel',
 ]
 
 type Project = (typeof projects)[number]
 
-function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className={`grid rounded-lg border border-white/10 bg-[#120b09] transition hover:-translate-y-1 hover:border-[#ef233c]/60 ${compact ? 'grid-cols-[104px_1fr] gap-3 p-3' : 'grid-cols-[220px_1fr] gap-5 p-4 items-center'}`}>
-      <div className={`${compact ? 'h-[208px] w-[104px]' : 'h-[360px] w-[180px]'} overflow-hidden rounded-md bg-black`}>
-        <img src={project.image} alt={project.title} className="h-full w-full object-cover object-top transition duration-500 hover:scale-105" />
+    <article className="grid grid-cols-[104px_1fr] items-center gap-4 rounded-lg border border-white/10 bg-[#120b09] p-3 transition hover:-translate-y-1 hover:border-[#ef233c]/60 md:grid-cols-[200px_1fr] md:gap-6 md:p-4">
+      <div className="w-[104px] shrink-0 overflow-hidden rounded-md bg-black md:w-[200px]">
+        <img src={project.image} alt={project.title} className="w-full h-auto object-contain transition duration-500 hover:scale-105" />
       </div>
-      <div className={compact ? 'py-1' : 'p-4'}>
-        <h3 className={`${compact ? 'text-lg' : 'text-2xl'} font-black`}>{project.title}</h3>
-        <p className={`${compact ? 'mt-2 text-xs leading-5' : 'mt-4 leading-7'} text-white/66`}>{project.text}</p>
-        {'link' in project && project.link && (
+      <div className="py-1 md:py-1">
+        <h3 className="text-xl font-black md:text-2xl">{project.title}</h3>
+        <p className="mt-2 text-xs leading-5 text-white/66 md:mt-2 md:text-sm md:leading-6">{project.text}</p>
+        {project.link && (
           <a
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            className={`${compact ? 'mt-3 text-xs' : 'mt-5 text-sm'} inline-flex font-bold text-[#ff4d5f] transition hover:text-white`}
+            className="mt-4 inline-flex text-xs font-bold text-[#ff4d5f] transition hover:text-white md:mt-3 md:text-sm"
           >
             {project.link.replace('https://', '')}
           </a>
@@ -107,6 +112,18 @@ function App() {
   const [activeSlide, setActiveSlide] = useState(0)
   const portfolioSliderRef = useRef<HTMLDivElement>(null)
   const activeSlideRef = useRef(0)
+
+  const scrollToSlide = (index: number) => {
+    const slider = portfolioSliderRef.current
+    if (!slider) return
+    
+    const slideElement = slider.children[index] as HTMLElement | undefined
+    if (!slideElement) return
+
+    slider.scrollTo({ left: slideElement.offsetLeft - slider.offsetLeft, behavior: 'smooth' })
+    activeSlideRef.current = index
+    setActiveSlide(index)
+  }
 
   useEffect(() => {
     const slider = portfolioSliderRef.current
@@ -214,7 +231,7 @@ function App() {
             style={{ backgroundImage: 'url(/hero.png)' }}
             aria-label="Hero banner"
           />
-          <div className="mx-auto max-w-7xl px-5 pb-16 pt-8 md:px-8 md:pb-24 md:pt-12">
+          <div className="mx-auto max-w-7xl px-5 pb-10 pt-6 md:px-8 md:pb-16 md:pt-8">
             <div className="max-w-3xl">
             <h1 className="text-5xl font-black leading-[0.96] tracking-normal md:text-7xl">
               I build websites and apps that look sharp and work smoothly.
@@ -234,7 +251,7 @@ function App() {
           </div>
         </section>
 
-        <section id="services" className="border-y border-white/10 bg-[#0e0908] px-5 py-16 md:px-8 md:py-24">
+        <section id="services" className="border-y border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
           <div className="mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Services</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Development services for web and app projects.</h2>
@@ -249,34 +266,31 @@ function App() {
           </div>
         </section>
 
-        <section id="portfolio" className="px-5 py-16 md:px-8 md:py-24">
+        <section id="portfolio" className="px-5 py-8 md:px-8 md:py-2">
           <div className="mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Portfolio</p>
-            <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Selected website and application work.</h2>
-            <div ref={portfolioSliderRef} className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-hidden pb-3 md:hidden">
+            <h2 className="mt-1 max-w-3xl text-4xl font-black md:text-4xl">Selected website and application work.</h2>
+            <div ref={portfolioSliderRef} className="mt-6 flex snap-x snap-mandatory gap-6 overflow-x-hidden pb-4">
               {projects.map((project) => (
                 <div key={project.title} className="grid min-w-full snap-start">
-                  <ProjectCard project={project} compact />
+                  <ProjectCard project={project} />
                 </div>
               ))}
             </div>
-            <div className="mt-4 flex justify-center gap-2 md:hidden" aria-label="Portfolio carousel position">
+            <div className="mt-6 flex justify-center gap-3" aria-label="Portfolio carousel position">
               {projects.map((project, index) => (
-                <span
+                <button
                   key={project.title}
-                  className={`h-2 rounded-full transition-all duration-300 ${activeSlide === index ? 'w-8 bg-[#ef233c]' : 'w-2 bg-white/30'}`}
+                  onClick={() => scrollToSlide(index)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${activeSlide === index ? 'w-12 bg-[#ef233c]' : 'w-2.5 bg-white/20 hover:bg-white/40'}`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
-              ))}
-            </div>
-            <div className="mt-10 hidden gap-6 md:grid">
-              {projects.map((project) => (
-                <ProjectCard key={project.title} project={project} />
               ))}
             </div>
           </div>
         </section>
 
-        <section id="skills" className="bg-[#0e0908] px-5 py-16 md:px-8 md:py-24">
+        <section id="skills" className="bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
           <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Tools</p>
@@ -292,7 +306,7 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="px-5 py-16 md:px-8 md:py-24">
+        <section id="contact" className="px-5 py-12 md:px-8 md:py-16">
           <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#ef233c] px-6 py-12 text-white md:px-12 md:py-16">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Contact</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Need a website or application? Let us build it.</h2>
@@ -306,6 +320,56 @@ function App() {
             </div>
           </div>
         </section>
+
+        <footer className="border-t border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
+              <div>
+                <h3 className="font-black text-white">Navigation</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><a href="#home" className="text-white/60 transition hover:text-[#ff4d5f]">Home</a></li>
+                  <li><a href="#services" className="text-white/60 transition hover:text-[#ff4d5f]">Services</a></li>
+                  <li><a href="#portfolio" className="text-white/60 transition hover:text-[#ff4d5f]">Portfolio</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-black text-white">More</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><a href="#skills" className="text-white/60 transition hover:text-[#ff4d5f]">Skills</a></li>
+                  <li><a href="#contact" className="text-white/60 transition hover:text-[#ff4d5f]">Contact</a></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-black text-white">Contact</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><a href="mailto:muzamuzammil01@gmail.com" className="text-white/60 transition hover:text-[#ff4d5f]">Email</a></li>
+                  <li><a href="tel:9400525063" className="text-white/60 transition hover:text-[#ff4d5f]">Phone</a></li>
+                </ul>
+              </div>
+              <div className="col-span-2 md:col-span-1">
+                <h3 className="font-black text-white">Social</h3>
+                <div className="social-card mt-4">
+                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="socialContainer containerOne" aria-label="Instagram">
+                    <svg className="socialSvg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" /></svg>
+                  </a>
+
+                  <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="socialContainer containerThree" aria-label="LinkedIn">
+                    <svg className="socialSvg" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.83-48.3 93.97 0 111.28 61.9 111.28 142.3V448z" /></svg>
+                  </a>
+                  <a href="https://wa.me/919400525063" target="_blank" rel="noreferrer" className="socialContainer containerFour" aria-label="WhatsApp">
+                    <svg className="socialSvg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.325-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" /></svg>
+                  </a>
+                  <a href="https://github.com/Muzammil-c0de" target="_blank" rel="noreferrer" className="socialContainer containerFive" aria-label="GitHub">
+                    <svg className="socialSvg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 border-t border-white/10 pt-6">
+              <p className="text-center text-sm text-white/50">© 2026 Muzammil. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   )
