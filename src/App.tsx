@@ -247,11 +247,19 @@ function App() {
 
       <main>
         <section id="home" className="bg-[#1b0f0b]">
-          <div
-            className="mx-auto -mt-2 aspect-[1366/768] min-h-[210px] w-full max-w-7xl bg-contain bg-center bg-no-repeat sm:-mt-4 sm:min-h-[320px] md:mt-0 md:min-h-[480px] lg:min-h-0"
-            style={{ backgroundImage: 'url(/hero.png)' }}
-            aria-label="Hero banner"
-          />
+          <div className="mx-auto -mt-2 aspect-[1366/768] min-h-[210px] w-full max-w-7xl overflow-hidden bg-[#1b0f0b] sm:-mt-4 sm:min-h-[320px] md:mt-0 md:min-h-[480px] lg:min-h-0">
+            <video
+              className="block h-[calc(100%+2rem)] w-full -translate-y-8 object-cover object-top"
+              aria-label="Hero banner"
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="/hero.png"
+            >
+              <source src="/hero2.mp4" type="video/mp4" />
+            </video>
+          </div>
           <div className="relative z-10 mx-auto -mt-4 max-w-7xl px-5 pb-10 md:-mt-32 md:px-8 md:pb-16">
             <div className="max-w-3xl">
             <h1 className="text-5xl font-black leading-[0.96] tracking-normal md:text-7xl">
