@@ -85,19 +85,19 @@ type Project = (typeof projects)[number]
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="grid grid-cols-[104px_1fr] items-center gap-4 rounded-lg border border-white/10 bg-[#120b09] p-3 transition hover:-translate-y-1 hover:border-[#ef233c]/60 md:grid-cols-[200px_1fr] md:gap-6 md:p-4">
-      <div className="w-[104px] shrink-0 overflow-hidden rounded-md bg-black md:w-[200px]">
+    <article className="grid grid-cols-[104px_1fr] items-center gap-4 rounded-lg border border-[#ef233c]/30 bg-white p-3 text-[#142f38] shadow-lg shadow-black/10 transition hover:-translate-y-1 hover:border-[#ef233c]/70 md:grid-cols-[200px_1fr] md:gap-6 md:p-4">
+      <div className="w-[104px] shrink-0 overflow-hidden rounded-md bg-white md:w-[200px]">
         <img src={project.image} alt={project.title} className="w-full h-auto object-contain transition duration-500 hover:scale-105" />
       </div>
       <div className="py-1 md:py-1">
         <h3 className="text-xl font-black md:text-2xl">{project.title}</h3>
-        <p className="mt-2 text-xs leading-5 text-white/66 md:mt-2 md:text-sm md:leading-6">{project.text}</p>
+        <p className="mt-2 text-xs leading-5 text-[#48545a] md:mt-2 md:text-sm md:leading-6">{project.text}</p>
         {project.link && (
           <a
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            className="mt-4 inline-flex text-xs font-bold text-[#ff4d5f] transition hover:text-white md:mt-3 md:text-sm"
+            className="mt-4 inline-flex text-xs font-bold text-[#d90429] transition hover:text-[#142f38] md:mt-3 md:text-sm"
           >
             {project.link.replace('https://', '')}
           </a>
@@ -179,8 +179,8 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#1b0f0b] text-white">
-      <header className="relative z-50 bg-[#1b0f0b]">
+    <div className="min-h-screen bg-[#0a3a48] text-white">
+      <header className="relative z-50 bg-[#0a3a48]">
         <nav className="mx-auto max-w-7xl px-4 py-3 sm:px-5 md:px-8">
           <div className="flex items-center justify-between">
             <a href="#home" className="flex items-center" aria-label="Go to home">
@@ -245,11 +245,11 @@ function App() {
         </div>
       </aside>
 
-      <main>
-        <section id="home" className="bg-[#1b0f0b]">
-          <div className="mx-auto -mt-2 aspect-[1366/768] min-h-[210px] w-full max-w-7xl overflow-hidden bg-[#1b0f0b] sm:-mt-4 sm:min-h-[320px] md:mt-0 md:min-h-[480px] lg:min-h-0">
+      <main className="bg-[#0a3a48]">
+        <section id="home" className="-mt-8 bg-[#0a3a48]">
+          <div className="mx-auto mt-0 w-full max-w-7xl overflow-hidden bg-[#0a3a48] min-h-[280px] sm:min-h-[360px] md:min-h-[480px] lg:min-h-[560px]">
             <video
-              className="block h-[calc(100%+2rem)] w-full -translate-y-8 object-cover object-top"
+              className="block h-full w-full object-cover object-top"
               aria-label="Hero banner"
               autoPlay
               loop
@@ -260,7 +260,7 @@ function App() {
               <source src="/hero2.mp4" type="video/mp4" />
             </video>
           </div>
-          <div className="relative z-10 mx-auto -mt-4 max-w-7xl px-5 pb-10 md:-mt-32 md:px-8 md:pb-16">
+          <div className="relative z-10 mx-auto max-w-7xl px-5 pb-10 md:px-8 md:pb-16 -mt-24 sm:-mt-28 md:-mt-40 bg-gradient-to-b from-[#0a3a48] to-[#0a3a48]">
             <div className="max-w-3xl">
             <h1 className="text-5xl font-black leading-[0.96] tracking-normal md:text-7xl">
               I build websites and apps that look sharp and work smoothly.
@@ -280,7 +280,7 @@ function App() {
           </div>
         </section>
 
-        <section id="services" className="border-y border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
+        <section id="services" className="border-y border-white/10 bg-[#062d38] px-5 py-12 md:px-8 md:py-16">
           <div className="reveal mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Services</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Development services for web and app projects.</h2>
@@ -319,7 +319,7 @@ function App() {
           </div>
         </section>
 
-        <section id="skills" className="bg-[#0e0908] px-5 py-12 md:px-8 md:py-16">
+        <section id="skills" className="bg-[#062d38] px-5 py-12 md:px-8 md:py-16">
           <div className="reveal mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Tools</p>
@@ -340,7 +340,7 @@ function App() {
             <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Contact</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Need a website or application? Let us build it.</h2>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="mailto:muzamuzammil01@gmail.com" className="rounded-full bg-[#1b0f0b] px-6 py-3.5 text-center font-bold text-white transition hover:bg-black">
+              <a href="mailto:muzamuzammil01@gmail.com" className="rounded-full bg-[#0a3a48] px-6 py-3.5 text-center font-bold text-white transition hover:bg-[#073a4a]">
                 muzamuzammil01@gmail.com
               </a>
               <a href="tel:9400525063" className="rounded-full border border-white/30 px-6 py-3.5 text-center font-bold text-white transition hover:bg-white hover:text-[#ef233c]">
@@ -350,7 +350,7 @@ function App() {
           </div>
         </section>
 
-        <footer className="reveal border-t border-white/10 bg-[#0e0908] px-5 py-12 md:px-8 md:py-8">
+        <footer className="reveal border-t border-white/10 bg-[#062d38] px-5 py-12 md:px-8 md:py-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
               <div>
