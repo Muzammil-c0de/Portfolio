@@ -222,7 +222,7 @@ function App() {
       </header>
 
       <aside
-        className={`fixed inset-0 z-40 h-dvh w-full bg-[#1b0f0b] px-6 pb-8 pt-24 transition-all duration-500 ease-out md:hidden ${isMenuOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
+        className={`fixed inset-0 z-40 h-dvh w-full bg-[#0a3a48] px-6 pb-8 pt-24 transition-all duration-500 ease-out md:hidden ${isMenuOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
         aria-hidden={!isMenuOpen}
       >
         <div className="flex h-full flex-col justify-center gap-4 text-center text-4xl font-black text-white">
