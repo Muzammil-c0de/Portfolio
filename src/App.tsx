@@ -246,10 +246,10 @@ function App() {
       </aside>
 
       <main className="bg-[#0a3a48]">
-        <section id="home" className="-mt-8 bg-[#0a3a48]">
-          <div className="mx-auto mt-0 w-full max-w-7xl overflow-hidden bg-[#0a3a48] min-h-[280px] sm:min-h-[360px] md:min-h-[480px] lg:min-h-[560px]">
+        <section id="home" className="bg-[#0a3a48]">
+          <div className="w-full overflow-hidden bg-[#02161b]">
             <video
-              className="block h-full w-full object-cover object-top"
+              className="block aspect-[2732/1356] h-auto w-full object-contain"
               aria-label="Hero banner"
               autoPlay
               loop
@@ -260,7 +260,7 @@ function App() {
               <source src="/hero2.mp4" type="video/mp4" />
             </video>
           </div>
-          <div className="relative z-10 mx-auto max-w-7xl px-5 pb-10 md:px-8 md:pb-16 -mt-24 sm:-mt-28 md:-mt-40 bg-gradient-to-b from-[#0a3a48] to-[#0a3a48]">
+          <div className="relative z-10 mx-auto max-w-7xl px-5 pb-10 pt-7 md:px-8 md:pb-16 md:pt-10">
             <div className="max-w-3xl">
             <h1 className="text-5xl font-black leading-[0.96] tracking-normal md:text-7xl">
               I build websites and apps that look sharp and work smoothly.
