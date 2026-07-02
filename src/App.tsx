@@ -85,19 +85,19 @@ type Project = (typeof projects)[number]
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="grid grid-cols-[104px_1fr] items-center gap-4 rounded-lg border border-[#ef233c]/30 bg-white p-3 text-[#142f38] shadow-lg shadow-black/10 transition hover:-translate-y-1 hover:border-[#ef233c]/70 md:grid-cols-[200px_1fr] md:gap-6 md:p-4">
+    <article className="grid grid-cols-[104px_1fr] items-center gap-4 rounded-lg border border-[#ef233c]/30 bg-white p-3 text-[#111111] shadow-lg shadow-black/10 transition hover:-translate-y-1 hover:border-[#ef233c]/70 md:grid-cols-[200px_1fr] md:gap-6 md:p-4">
       <div className="w-[104px] shrink-0 overflow-hidden rounded-md bg-white md:w-[200px]">
         <img src={project.image} alt={project.title} className="w-full h-auto object-contain transition duration-500 hover:scale-105" />
       </div>
       <div className="py-1 md:py-1">
         <h3 className="text-xl font-black md:text-2xl">{project.title}</h3>
-        <p className="mt-2 text-xs leading-5 text-[#48545a] md:mt-2 md:text-sm md:leading-6">{project.text}</p>
+        <p className="mt-2 text-xs leading-5 text-[#555555] md:mt-2 md:text-sm md:leading-6">{project.text}</p>
         {project.link && (
           <a
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            className="mt-4 inline-flex text-xs font-bold text-[#d90429] transition hover:text-[#142f38] md:mt-3 md:text-sm"
+            className="mt-4 inline-flex text-xs font-bold text-[#d90429] transition hover:text-[#111111] md:mt-3 md:text-sm"
           >
             {project.link.replace('https://', '')}
           </a>
@@ -179,8 +179,8 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0a3a48] text-white">
-      <header className="relative z-50 bg-[#0a3a48]">
+    <div className="min-h-screen bg-[#0c0c0c] text-white">
+      <header className="relative z-50 bg-[#0c0c0c]">
         <nav className="mx-auto max-w-7xl px-4 py-3 sm:px-5 md:px-8">
           <div className="flex items-center justify-between">
             <a href="#home" className="flex items-center" aria-label="Go to home">
@@ -222,7 +222,7 @@ function App() {
       </header>
 
       <aside
-        className={`fixed inset-0 z-40 h-dvh w-full bg-[#0a3a48] px-6 pb-8 pt-24 transition-all duration-500 ease-out md:hidden ${isMenuOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
+        className={`fixed inset-0 z-40 h-dvh w-full bg-[#0c0c0c] px-6 pb-8 pt-24 transition-all duration-500 ease-out md:hidden ${isMenuOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0'}`}
         aria-hidden={!isMenuOpen}
       >
         <div className="flex h-full flex-col justify-center gap-4 text-center text-4xl font-black text-white">
@@ -245,20 +245,16 @@ function App() {
         </div>
       </aside>
 
-      <main className="bg-[#0a3a48]">
-        <section id="home" className="bg-[#0a3a48]">
-          <div className="w-full overflow-hidden bg-[#02161b]">
-            <video
-              className="block aspect-[2732/1356] h-auto w-full object-contain"
-              aria-label="Hero banner"
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/hero.png"
-            >
-              <source src="/hero2.mp4" type="video/mp4" />
-            </video>
+      <main className="bg-[#0c0c0c]">
+        <section id="home" className="bg-[#0c0c0c]">
+          <div className="w-full overflow-hidden bg-[#000000]">
+            <img
+              src="/hero.png"
+              alt="Hero banner"
+              className="block w-full h-auto object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-5 pb-10 pt-7 md:px-8 md:pb-16 md:pt-10">
             <div className="max-w-3xl">
@@ -280,7 +276,7 @@ function App() {
           </div>
         </section>
 
-        <section id="services" className="border-y border-white/10 bg-[#062d38] px-5 py-12 md:px-8 md:py-16">
+        <section id="services" className="border-y border-white/10 bg-[#141414] px-5 py-12 md:px-8 md:py-16">
           <div className="reveal mx-auto max-w-7xl">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Services</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Development services for web and app projects.</h2>
@@ -319,7 +315,7 @@ function App() {
           </div>
         </section>
 
-        <section id="skills" className="bg-[#062d38] px-5 py-12 md:px-8 md:py-16">
+        <section id="skills" className="bg-[#141414] px-5 py-12 md:px-8 md:py-16">
           <div className="reveal mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-start">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff4d5f]">Tools</p>
@@ -340,7 +336,7 @@ function App() {
             <p className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Contact</p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Need a website or application? Let us build it.</h2>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="mailto:muzamuzammil01@gmail.com" className="rounded-full bg-[#0a3a48] px-6 py-3.5 text-center font-bold text-white transition hover:bg-[#073a4a]">
+              <a href="mailto:muzamuzammil01@gmail.com" className="rounded-full bg-[#0c0c0c] px-6 py-3.5 text-center font-bold text-white transition hover:bg-[#1a1a1a]">
                 muzamuzammil01@gmail.com
               </a>
               <a href="tel:9400525063" className="rounded-full border border-white/30 px-6 py-3.5 text-center font-bold text-white transition hover:bg-white hover:text-[#ef233c]">
@@ -350,7 +346,7 @@ function App() {
           </div>
         </section>
 
-        <footer className="reveal border-t border-white/10 bg-[#062d38] px-5 py-12 md:px-8 md:py-8">
+        <footer className="reveal border-t border-white/10 bg-[#141414] px-5 py-12 md:px-8 md:py-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
               <div>
@@ -403,7 +399,7 @@ function App() {
 
       {isHireMeModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
-          <div className="relative w-full max-w-md md:max-w-xl rounded-2xl border border-white/10 bg-[#1b0f0b] p-6 shadow-2xl md:p-6">
+          <div className="relative w-full max-w-md md:max-w-xl rounded-2xl border border-white/10 bg-[#111111] p-6 shadow-2xl md:p-6">
             <button
               onClick={() => setIsHireMeModalOpen(false)}
               className="absolute right-4 top-4 text-white/50 transition hover:text-white"
